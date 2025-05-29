@@ -66,7 +66,7 @@ Este proyecto describe una base de datos inicial para una tienda de abarrotes qu
 
 ---
 
-## 🔗 Relaciones entre Tablas
+## Relaciones entre Tablas
 - Cada **producto** pertenece a una **categoría**.
 - Cada **producto** puede estar asociado a un **proveedor**.
 - Una **venta** se asocia a un **cliente** (o puede quedar como genérica).
