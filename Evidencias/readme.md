@@ -112,3 +112,7 @@ En mi caso, he decidido utilizar **MySQL** por las siguientes razones:
 - Rendimiento adecuado para proyectos pequeños y medianos.
 - Flexibilidad de licencias y costos reducidos.
 - Instalación y administración sencillas.
+
+### Bibliografía
+- Hostinger https://www.hostinger.com/es/tutoriales/sgbd
+- Intelequia https://intelequia.com/es/blog/post/gestor-de-base-de-datos-qu%C3%A9-es-funcionalidades-y-ejemplos
