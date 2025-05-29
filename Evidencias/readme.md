@@ -1,12 +1,12 @@
 #TAREA 1
 
-# 🛒 Base de Datos - Tienda de Abarrotes "La Esquinita"
+# Base de Datos - Tienda de Abarrotes
 
 Este proyecto describe una base de datos inicial para una tienda de abarrotes que atiende aproximadamente 500 personas por día. La base está pensada para un manejo sencillo pero funcional, con 7 tablas principales y sus relaciones básicas.
 
 ---
 
-## 📚 Tablas y Atributos
+## Tablas y Atributos
 
 ### 1. Tabla `Productos`
 | Atributo         | Tipo de Dato  | Descripción                  |
