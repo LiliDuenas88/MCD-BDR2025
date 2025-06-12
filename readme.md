@@ -9,3 +9,4 @@ Este es el repositorio de la materide Bases de Datos Relacionales de la Maestria
 
 #### Evidencias:
 - [Tarea 1](/Evidencias/readme.md)
+- [Tarea 2](/Evidencias/Tarea2/readme.md)
