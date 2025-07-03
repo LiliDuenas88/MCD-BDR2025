@@ -8,5 +8,5 @@
 Este es el repositorio de la materide Bases de Datos Relacionales de la Maestria de Ciencia de Datos de la Facultad de Ciencias Fisico Matematicas de la Universidad Autonoma de Nuevo León que imparte el [[Dr. Alberto Benavides](https://github.com/albertobenavides)]
 
 #### Evidencias:
-- [Tarea 1](/Evidencias/readme.md)
-- [Tarea 2](/Evidencias/Tarea2/readme.md)
+- [Tarea 1](/Tarea 1/readme.md)
+- [Tarea 2](/Tarea 2/readme.md)
