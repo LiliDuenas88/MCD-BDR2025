@@ -1,5 +1,6 @@
 # Creación base de datos - Tarea 4
 
+```sql
 -- Creación base de datos
 
 create database tienda_abarrotes;
