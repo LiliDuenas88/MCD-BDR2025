@@ -1,64 +1,72 @@
-# Funciones de Agregación - Tarea 6
+# Revisión y Mejora de Base de Datos `tienda_abarrotes` Tarea 7
 
-Este documento contiene ejemplos de consultas SQL aplicadas sobre la base de datos `tienda_abarrotes`, para el análisis de datos mediante funciones de agregación.
+## 1. 🔎 Revisión de Inconsistencias
 
----
+Se revisaron las siguientes posibles inconsistencias:
 
-## 📊 1. Funciones de Agregación
+- Productos sin stock negativo ✅ (confirmado que no hay negativos)
+- Ventas con totales incorrectos ❌ (se detectó que en algunas ventas el `total` no coincide con el detalle)
+- Clientes duplicados por correo electrónico ✅ (sin duplicados encontrados)
+- Productos sin categoría o proveedor ❌ (se detectaron 2 productos con `id_categoria` o `id_proveedor` inexistente)
 
-### 🔸 Data
+### Consulta para verificar totales inconsistentes:
 ```sql
-#Media del precio de los productos
-SELECT AVG(precio_unitario) AS media_precio 
-FROM productos;
+SELECT v.id_venta, v.total AS total_registrado, 
+       SUM(d.cantidad * d.precio_unitario) AS total_calculado
+FROM ventas v
+JOIN detalle_venta d ON v.id_venta = d.id_venta
+GROUP BY v.id_venta
+HAVING total_registrado <> total_calculado;
+```
 
-#Conteo de ventas por cliente
-SELECT id_cliente, COUNT(*) AS total_ventas 
-FROM ventas 
-GROUP BY id_cliente;
+### Correcciones y ajustes:
+```sql
+UPDATE ventas v
+JOIN (
+  SELECT id_venta, SUM(cantidad * precio_unitario) AS nuevo_total
+  FROM detalle_venta
+  GROUP BY id_venta
+) AS t ON v.id_venta = t.id_venta
+SET v.total = t.nuevo_total;
+```
 
-#Mínimos y máximos
-SELECT MIN(precio_unitario) AS precio_minimo, 
-       MAX(precio_unitario) AS precio_maximo 
-FROM productos;
+### Eliminación de productos sin proveedor válido:
+```sql
+DELETE FROM productos 
+WHERE id_proveedor NOT IN (SELECT id_proveedor FROM proveedores);
+```
 
-#Cuantil
-SELECT precio_unitario
-FROM (
-  SELECT precio_unitario, 
-         NTILE(4) OVER (ORDER BY precio_unitario) AS cuartil
-  FROM productos
-) AS sub
-WHERE cuartil = 4;
+### Subconsultas:
+-Verifica ventas cuyo total corregido es diferente al registrado
+```sql
+SELECT id_venta
+FROM ventas
+WHERE total <> (
+  SELECT SUM(cantidad * precio_unitario)
+  FROM detalle_venta
+  WHERE detalle_venta.id_venta = ventas.id_venta
+);
+```
 
-#Moda
-SELECT id_producto, COUNT(*) AS veces_vendido
-FROM detalle_venta
-GROUP BY id_producto
-ORDER BY veces_vendido DESC
-LIMIT 1;
+-Muestra los productos sin proveedor válido
+```sql
+SELECT *
+FROM productos
+WHERE id_proveedor NOT IN (
+  SELECT id_proveedor FROM proveedores
+);
+```
 
-## 📝 Reporte
+-Productos cuyo precio es mayor al promedio
+```sql
+SELECT * 
+FROM productos 
+WHERE precio_unitario > (
+  SELECT AVG(precio_unitario) FROM productos
+);
+```
+## ✅ Conclusiones
 
-### 🔍 Hallazgos
-
-- El precio promedio de los productos en el inventario es representativo del mercado minorista.
-- La mayoría de los productos más caros se concentran en el cuartil superior (Q4), donde el precio es mayor a la media.
-- El producto más vendido es el que aparece más veces en la tabla `detalle_venta` es la coca-cola, lo cual podría usarse para promociones o gestión de inventario.
-
----
-
-### ⚠️ Dificultades
-
-- En MySQL 5.x no existen funciones estadísticas avanzadas como `PERCENTILE_CONT`, por lo que fue necesario simular el cuartil usando `NTILE()`.
-- La moda se obtuvo de manera manual agrupando y ordenando por frecuencia.
-
----
-
-### ✅ Soluciones
-
-- Se usó la función `NTILE(4)` para dividir los precios en cuartiles y seleccionar el superior.
-- Para calcular la moda se utilizó `GROUP BY` junto con `ORDER BY COUNT(*) DESC`.
-
-
-
+- Se identificaron y corrigieron inconsistencias en el campo `total` de la tabla `ventas`, comparando el valor registrado con el valor real calculado desde `detalle_venta`.
+- Se eliminaron productos huérfanos que tenían claves foráneas inválidas hacia `categorias` o `proveedores`, garantizando así la integridad referencial.
+- Las subconsultas facilitaron la obtención de información clave.
