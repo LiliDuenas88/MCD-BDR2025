@@ -17,6 +17,7 @@ Este documento resume los hallazgos, dificultades, recomendaciones y recursos re
 - Los tipos de datos generados a veces **no coinciden con los tipos definidos en la base**, lo que puede causar errores al ejecutar los scripts SQL (ejemplo: `VARCHAR(20)` vs cadenas de 30+ caracteres).
 - Si los nombres de los campos no se configuran exactamente como en las tablas reales, hay que **modificar manualmente los nombres en el script SQL**.
 - La **versión gratuita de Mockaroo** limita la descarga a **1000 registros por archivo**, lo cual puede ser restrictivo en bases más grandes.
+- Aún y cuando es fácil generar base de datos ficticias y que generé tres tablas con Mackaroo, preferí buscar por mi parte los datos.
 
 ---
 
@@ -64,7 +65,7 @@ INSERT INTO productos (id_producto, nombre, descripcion, precio_unitario, stock,
 (2, 'Hiking Water Bottle with Filter', '8oz water bottle with built-in filter for clean drinking water.', 29.99, 100, 2, 2),
 ...
 (50, 'Almond Joy Bars', 'Chocolate-covered candy bars with coconut and almonds.', 1.29, 100, 50, 50);
--Se generó 50 registrso de productos ficticios
+-Se generó 50 registros de productos ficticios
 
 
 
