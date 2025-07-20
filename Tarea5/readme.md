@@ -35,9 +35,10 @@ Este documento resume los hallazgos, dificultades, recomendaciones y recursos re
 
 ## 📦 Datos generados
 
-### 🗂️ Tabla `categorias`
+### 🗂️ Tablas
 
 ```sql
+### 🗂️ Tabla `Categorias`
 INSERT INTO categorias (id_categoria, nombre_categoria) VALUES (1, 'Food - Beverages');
 INSERT INTO categorias (id_categoria, nombre_categoria) VALUES (2, 'Food - Prepared Meals');
 INSERT INTO categorias (id_categoria, nombre_categoria) VALUES (3, 'Pets');
