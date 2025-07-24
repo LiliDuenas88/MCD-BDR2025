@@ -15,3 +15,4 @@ Este es el repositorio de la materide Bases de Datos Relacionales de la Maestria
 - [Tarea 5](/Tarea5/readme.md)
 - [Tarea 6](/Tarea6/readme.md)
 - [Tarea 7](/Tarea7/readme.md)
+- [Tarea 8](/Tarea8/readme.md)
